@@ -1,0 +1,158 @@
+Week 2
+int led=13;
+int buzzer=11;
+void setup() {
+pinMode(13, OUTPUT);
+pinMode(11, OUTPUT);
+}
+void loop() {
+digitalWrite(13, HIGH);
+digitalWrite(11, HIGH);
+delay(1000);
+digitalWrite(13, LOW);
+digitalWrite(11, LOW);
+delay(2000);
+}
+
+
+
+Week 4(i)
+const int TRIG_PIN = 6; // Arduino pin connected to Ultrasonic Sensor's TRIG pin
+const int ECHO_PIN = 7; // Arduino pin connected to Ultrasonic Sensor's ECHO pin
+const int BUZZER_PIN = 3; // Arduino pin connected to Piezo Buzzer's pin
+const int DISTANCE_THRESHOLD = 50; // centimeters
+const int LED_PIN = 13;
+// variables will change:
+float duration_us, distance_cm;
+void setup() {
+Serial.begin (9600); // initialize serial port
+pinMode(TRIG_PIN, OUTPUT); // set arduino pin to output mode
+pinMode(ECHO_PIN, INPUT); // set arduino pin to input mode
+pinMode(BUZZER_PIN, OUTPUT);
+pinMode(LED_PIN, OUTPUT);
+ // set arduino pin to output mode
+}
+void loop() {
+ // generate 10-microsecond pulse to TRIG pin
+digitalWrite(TRIG_PIN, HIGH);
+delayMicroseconds(10);
+digitalWrite(TRIG_PIN, LOW);
+ // measure duration of pulse from ECHO pin
+duration_us = pulseIn(ECHO_PIN, HIGH);
+ // calculate the distance
+distance_cm = 0.017 * duration_us;
+if(distance_cm< DISTANCE_THRESHOLD){
+digitalWrite(BUZZER_PIN, HIGH);
+digitalWrite(LED_PIN, HIGH);
+ // turn on Piezo Buzzer
+ }
+else{
+digitalWrite(BUZZER_PIN, LOW); // turn off Piezo Buzzer
+digitalWrite(LED_PIN, LOW);
+ }
+ // print the value to Serial Monitor
+Serial.print("distance: ");
+Serial.print(distance_cm);
+Serial.println(" cm");
+delay(500);
+}
+
+
+
+Week 4(ii)
+#definepirPin 2
+int calibrationTime = 30;
+long unsigned int lowIn;
+long unsigned int pause = 5000;
+booleanlockLow = true;
+booleantakeLowTime;
+int PIRValue = 0;
+void setup() {
+Serial.begin(9600);
+pinMode(pirPin, INPUT);
+}
+void loop() {
+PIRSensor();
+}
+void PIRSensor() {
+ if(digitalRead(pirPin) == HIGH) {
+ if(lockLow) {
+PIRValue = 1;
+lockLow = false;
+Serial.println("Motion detected.");
+delay(1);
+ }
+takeLowTime = true;
+ }
+ if(digitalRead(pirPin) == LOW) {
+ if(takeLowTime){
+lowIn = millis();takeLowTime = false;
+ }
+if(!lockLow&&millis() - lowIn> pause) {
+PIRValue = 0;
+lockLow = true;
+Serial.println("Motion ended.");
+delay(1);
+ }
+ }
+}
+
+
+
+Week 4(iii)
+void setup() {
+pinMode(7,INPUT);
+Serial.begin(9600);
+pinMode(13,OUTPUT);
+}
+void loop() {
+Serial.print("IRSensorip ");
+Serial.println(digitalRead(7));
+if(digitalRead(7)==0)
+{
+digitalWrite(13,HIGH);
+ }
+else{
+digitalWrite(13,LOW);
+ }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
